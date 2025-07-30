@@ -72,22 +72,11 @@
       100% { box-shadow: 0 0 10px #00ffcc; }
     }
 
-    .main-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 8vw;
-      max-font-size: 48px;
-      margin: 10px 0;
-      background: linear-gradient(90deg, #00cccc, #007777);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 6px rgba(0, 255, 200, 0.4);
-    }
-
     .subline {
-     font-size: 4vw;
-     max-font-size: 18px;
-     margin-bottom: 60px;
-     color: #00ffee;
+      font-size: 4vw;
+      max-font-size: 18px;
+      margin-bottom: 60px; /* mehr Abstand zu den Buttons */
+      color: #00ffee;
     }
 
     .subline span {
@@ -116,7 +105,6 @@
     }
 
     @media (max-width: 400px) {
-      .main-title { font-size: 28px; }
       .subline    { font-size: 14px; }
       a           { font-size: 14px; padding: 10px 20px; }
     }
@@ -133,10 +121,7 @@
   <!-- Avatar -->
   <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
 
-  <!-- Titel -->
-  <h1 class="main-title"></h1>
-
-  <!-- Beschreibung mit Icons (nicht betroffen von Schriftart) -->
+  <!-- Subline mit Icons -->
   <p class="subline">
     🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Tüftler</span>
   </p>
@@ -154,7 +139,7 @@
         loader.style.transition = "opacity 0.5s ease";
         loader.style.opacity = "0";
         setTimeout(() => loader.remove(), 500);
-      }, 3000); // 3 Sekunden sichtbar
+      }, 3500); // 3,5 Sekunden sichtbar
     });
   </script>
 

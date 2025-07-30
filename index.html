@@ -13,21 +13,47 @@
       text-align: center;
       padding: 50px;
     }
-    img {
-      width: 120px;
+
+    .avatar {
+      width: 180px;
       border-radius: 50%;
       margin-bottom: 20px;
-      box-shadow: 0 0 10px #00ffff;
+      box-shadow: 0 0 20px #00ffcc;
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
     }
+
+    .avatar:hover {
+      transform: scale(1.2);
+      box-shadow:
+        0 0 30px #00ffcc,
+        0 0 60px #00ffcc,
+        0 0 90px #00ffcc;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px #00ffcc;
+      }
+      50% {
+        box-shadow: 0 0 30px #00ffcc;
+      }
+      100% {
+        box-shadow: 0 0 10px #00ffcc;
+      }
+    }
+
     h1 {
       margin-bottom: 10px;
       font-size: 32px;
     }
+
     p {
       color: #aaa;
       margin-bottom: 30px;
       font-size: 16px;
     }
+
     a {
       display: inline-block;
       background: #1f1f1f;
@@ -39,26 +65,22 @@
       transition: background 0.3s;
       font-weight: bold;
     }
+
     a:hover {
       background: #333;
     }
   </style>
 </head>
 <body>
-  <img src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild" style="
-  width: 180px;
-  border-radius: 50%;
-  box-shadow:
-    0 0 20px #00ffcc,
-    0 0 40px #00ffcc,
-    0 0 60px #00ffcc;
-  margin-bottom: 20px;
-">
+
+  <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
+
   <h1>fin3st</h1>
   <p>Developer • Gamer • Internet Tüftler</p>
 
-  <a href="https://github.com/deinname" target="_blank">GitHub</a>
+  <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
   <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
   <a href="https://paypal.me/deinname" target="_blank">Support</a>
+
 </body>
 </html>

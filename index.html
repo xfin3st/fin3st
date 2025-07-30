@@ -84,10 +84,14 @@
     }
 
     .subline {
-      font-family: 'Orbitron', sans-serif;
       font-size: 4vw;
       max-font-size: 18px;
       margin-bottom: 30px;
+      color: #00ffee;
+    }
+
+    .subline span {
+      font-family: 'Orbitron', sans-serif;
       background: linear-gradient(90deg, #00ffee, #00ff88);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -132,24 +136,26 @@
   <!-- Titel -->
   <h1 class="main-title">fin3st</h1>
 
-  <!-- Beschreibung -->
-  <p class="subline">Developer • Gamer • Internet Tüftler</p>
+  <!-- Beschreibung mit Icons (nicht betroffen von Schriftart) -->
+  <p class="subline">
+    🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Tüftler</span>
+  </p>
 
   <!-- Buttons -->
   <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
   <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
   <a href="https://paypal.me/deinname" target="_blank">Support</a>
 
-  <!-- JS zum Entfernen des Loaders -->
+  <!-- JS zum Entfernen des Loaders nach 3.5 Sek -->
   <script>
     window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-  setTimeout(() => {
-    loader.style.transition = "opacity 0.5s ease";
-    loader.style.opacity = "0";
-    setTimeout(() => loader.remove(), 500);
-  }, 3500); // 3,5 Sekunden warten vor dem Ausblenden
-});
+      const loader = document.getElementById("loader");
+      setTimeout(() => {
+        loader.style.transition = "opacity 0.5s ease";
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 500);
+      }, 3000); // 3 Sekunden sichtbar
+    });
   </script>
 
 </body>

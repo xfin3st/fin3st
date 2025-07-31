@@ -50,6 +50,11 @@
       padding: 40px 20px;
     }
 
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     .avatar {
       width: 40vw;
       max-width: 180px;
@@ -73,9 +78,8 @@
     }
 
     .subline {
-      font-size: 4vw;
-      max-font-size: 18px;
-      margin-bottom: 60px; /* mehr Abstand zu den Buttons */
+      font-size: clamp(14px, 4vw, 18px);
+      margin-bottom: 60px;
       color: #00ffee;
     }
 
@@ -95,8 +99,7 @@
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 4vw;
-      max-font-size: 16px;
+      font-size: clamp(14px, 4vw, 16px);
       transition: background 0.3s ease;
     }
 
@@ -118,20 +121,20 @@
     <div id="loader-text">Loading…</div>
   </div>
 
-  <!-- Avatar -->
-  <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
+  <!-- Inhalt mit Containerbegrenzung -->
+  <div class="container">
+    <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
 
-  <!-- Subline mit Icons -->
-  <p class="subline">
-    🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Tüftler</span>
-  </p>
+    <p class="subline">
+      🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Tüftler</span>
+    </p>
 
-  <!-- Buttons -->
-  <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
-  <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
-  <a href="https://paypal.me/deinname" target="_blank">Support</a>
+    <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
+    <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
+    <a href="https://paypal.me/deinname" target="_blank">Support</a>
+  </div>
 
-  <!-- JS zum Entfernen des Loaders nach 3.5 Sek -->
+  <!-- Ladeanimation Script -->
   <script>
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");

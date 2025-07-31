@@ -36,18 +36,18 @@ https://fin3st.de
 
 ➡️ DNS + SSL via IONOS + GitHub integriert
 
----
+<!---
 
 ## 📸 Screenshot
 
-*(optional Bild einfügen, z. B. `screenshot.png`)*
+*(optional Bild einfügen, z. B. `screenshot.png`)* -->
 
 ---
 
 ## 🔗 Kontakt
 
 - GitHub: [xfin3st](https://github.com/xfin3st)
-- Discord: `fin.3st`
+- Discord: [`fin.3st`](https://discord.gg/PcFq9p5P)
 - Website: [https://fin3st.de](https://fin3st.de)
 
 ---

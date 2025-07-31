@@ -47,7 +47,7 @@ https://fin3st.de
 ## 🔗 Kontakt
 
 - GitHub: [xfin3st](https://github.com/xfin3st)
-- Discord: `fin3st#1337`
+- Discord: `fin.3st`
 - Website: [https://fin3st.de](https://fin3st.de)
 
 ---

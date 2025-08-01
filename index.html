@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>fin3st</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -14,11 +15,25 @@
       padding: 40px 20px;
     }
 
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     .avatar {
-      width: 150px;
+      width: 40vw;
+      max-width: 180px;
+      min-width: 100px;
       border-radius: 50%;
+      margin-bottom: 20px;
       box-shadow: 0 0 20px #00ffcc;
       animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #00ffcc, 0 0 60px #00ffcc, 0 0 90px #00ffcc;
     }
 
     @keyframes pulse {
@@ -28,68 +43,133 @@
     }
 
     .subline {
-      font-size: 18px;
-      margin: 20px 0 40px;
+      font-size: clamp(14px, 4vw, 18px);
+      margin-bottom: 40px;
       color: #00ffee;
     }
 
-    .btn {
+    .subline span {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #00ffee, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    a {
       display: inline-block;
       background: #1f1f1f;
       color: #00ffff;
       padding: 12px 24px;
-      margin: 8px;
+      margin: 8px 6px;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 16px;
+      font-size: clamp(14px, 4vw, 16px);
       transition: background 0.3s ease;
     }
 
-    .btn:hover {
+    a:hover {
       background: #333;
     }
 
-    #steam-status {
-      margin-top: 40px;
+    #steam-status-box {
+      background: #101010;
+      border: 2px solid #00ffee;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ffee22;
       font-size: 16px;
-      color: #00ffaa;
+      color: #00ffee;
     }
 
-    #steam-status img {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
+    img.game-header {
       margin-top: 10px;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Ladeanimation */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      flex-direction: column;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .spinner {
+      border: 6px solid #1a1a1a;
+      border-top: 6px solid #00ffcc;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loader-text {
+      color: #00ffcc;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 400px) {
+      .subline { font-size: 14px; }
+      a        { font-size: 14px; padding: 10px 20px; }
     }
   </style>
 </head>
 <body>
 
-  <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
+  <!-- Ladeanimation -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <div id="loader-text">Loading…</div>
+  </div>
 
-  <p class="subline">
-    🖥️ <b>Developer</b> · 🎮 <b>Gamer</b> · 🌐 <b>Internet Tüftler</b>
-  </p>
+  <!-- Inhalt -->
+  <div class="container">
+    <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
 
-  <a class="btn" href="https://github.com/xfin3st" target="_blank">GitHub</a>
-  <a class="btn" href="https://discord.gg/deinserver" target="_blank">Discord</a>
-  <a class="btn" href="https://paypal.me/deinname" target="_blank">Support</a>
+    <p class="subline">
+      🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Geek</span>
+    </p>
 
-  <div id="steam-status">Steam-Status wird geladen…</div>
+    <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
+    <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
+    <a href="https://paypal.me/xfin3st" target="_blank">Support</a>
 
+    <div id="steam-status-box">
+      <strong>🎮 Steam Status</strong><br>
+      <div id="steam-status">Wird geladen...</div>
+    </div>
+  </div>
+
+  <!-- Steam API + Proxy -->
   <script>
     const apiKey = "EE1F44A7DC9F2CDB8DE415701895BF07";
     const steamID = "76561197960775116";
+    const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamID}`;
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
 
-    fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamID}`)
+    fetch(proxyUrl)
       .then(res => res.json())
       .then(data => {
         const player = data.response.players[0];
         const statusDiv = document.getElementById("steam-status");
 
         let statusText = "";
-
         switch (player.personastate) {
           case 0: statusText = "🟥 Offline"; break;
           case 1: statusText = "🟩 Online"; break;
@@ -99,16 +179,30 @@
         }
 
         statusDiv.innerHTML = `
-          <strong>Steam:</strong> ${player.personaname}<br>
+          <b>${player.personaname}</b><br>
           Status: ${statusText}<br>
-          ${player.gameextrainfo ? `Spielt gerade: <b>${player.gameextrainfo}</b><br>
-          <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/${player.gameid}/header.jpg">` : "Aktuell kein Spiel aktiv"}
+          ${player.gameextrainfo
+            ? `🎮 Spielt gerade: <b>${player.gameextrainfo}</b><br>
+              <img class="game-header" src="https://cdn.cloudflare.steamstatic.com/steam/apps/${player.gameid}/header.jpg">`
+            : "Kein Spiel aktiv."}
         `;
       })
       .catch(err => {
         document.getElementById("steam-status").innerText = "Fehler beim Laden des Steam-Status 😢";
         console.error(err);
       });
+  </script>
+
+  <!-- Ladeanimation ausblenden -->
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      setTimeout(() => {
+        loader.style.transition = "opacity 0.5s ease";
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 500);
+      }, 2000);
+    });
   </script>
 
 </body>

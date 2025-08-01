@@ -4,44 +4,7 @@
   <meta charset="UTF-8">
   <title>fin3st</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* Ladeanimation */
-    #loader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      flex-direction: column;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .spinner {
-      border: 6px solid #1a1a1a;
-      border-top: 6px solid #00ffcc;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    @keyframes spin {
-      0%   { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    #loader-text {
-      color: #00ffcc;
-      font-size: 18px;
-      letter-spacing: 1px;
-    }
-
-    /* Hauptseite */
     body {
       margin: 0;
       background: #0d0d0d;
@@ -51,25 +14,11 @@
       padding: 40px 20px;
     }
 
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
     .avatar {
-      width: 40vw;
-      max-width: 180px;
-      min-width: 100px;
+      width: 150px;
       border-radius: 50%;
-      margin-bottom: 20px;
       box-shadow: 0 0 20px #00ffcc;
       animation: pulse 2s infinite;
-      transition: transform 0.3s ease;
-    }
-
-    .avatar:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px #00ffcc, 0 0 60px #00ffcc, 0 0 90px #00ffcc;
     }
 
     @keyframes pulse {
@@ -79,123 +28,87 @@
     }
 
     .subline {
-      font-size: clamp(14px, 4vw, 18px);
-      margin-bottom: 60px;
+      font-size: 18px;
+      margin: 20px 0 40px;
       color: #00ffee;
     }
 
-    .subline span {
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(90deg, #00ffee, #00ff88);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    a {
+    .btn {
       display: inline-block;
       background: #1f1f1f;
       color: #00ffff;
       padding: 12px 24px;
-      margin: 8px 6px;
+      margin: 8px;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      font-size: clamp(14px, 4vw, 16px);
+      font-size: 16px;
       transition: background 0.3s ease;
     }
 
-    a:hover {
+    .btn:hover {
       background: #333;
     }
 
-    .status-box {
+    #steam-status {
       margin-top: 40px;
-      border: 2px solid #00ffee;
+      font-size: 16px;
+      color: #00ffaa;
+    }
+
+    #steam-status img {
+      width: 64px;
+      height: 64px;
       border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 10px #00ffee;
-    }
-
-    .status-box h3 {
-      margin: 0 0 10px;
-      color: #00ffee;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    @media (max-width: 400px) {
-      .subline { font-size: 14px; }
-      a        { font-size: 14px; padding: 10px 20px; }
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Ladeanimation -->
-  <div id="loader">
-    <div class="spinner"></div>
-    <div id="loader-text">Loading…</div>
-  </div>
+  <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
 
-  <!-- Hauptinhalt -->
-  <div class="container">
-    <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
+  <p class="subline">
+    🖥️ <b>Developer</b> · 🎮 <b>Gamer</b> · 🌐 <b>Internet Tüftler</b>
+  </p>
 
-    <p class="subline">
-      🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Geek</span>
-    </p>
+  <a class="btn" href="https://github.com/xfin3st" target="_blank">GitHub</a>
+  <a class="btn" href="https://discord.gg/deinserver" target="_blank">Discord</a>
+  <a class="btn" href="https://paypal.me/deinname" target="_blank">Support</a>
 
-    <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
-    <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
-    <a href="https://paypal.me/xfin3st" target="_blank">Support</a>
+  <div id="steam-status">Steam-Status wird geladen…</div>
 
-    <!-- Steam Status -->
-    <div id="steam-status" class="status-box">
-      <h3>🎮 Steam Status</h3>
-      <p style="color:orange;">Wird geladen…</p>
-    </div>
-  </div>
-
-  <!-- Steam API Script -->
   <script>
-    const apiKey = 'EE1F44A7DC9F2CDB8DE415701895BF07';
-    const steamID = '76561197960775116';
+    const apiKey = "EE1F44A7DC9F2CDB8DE415701895BF07";
+    const steamID = "76561197960775116";
 
-    async function getSteamStatus() {
-      const statusBox = document.getElementById("steam-status");
-
-      try {
-        const res = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamID}`);
-        const data = await res.json();
+    fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamID}`)
+      .then(res => res.json())
+      .then(data => {
         const player = data.response.players[0];
+        const statusDiv = document.getElementById("steam-status");
 
-        if (!player) throw new Error("Kein Spieler gefunden");
+        let statusText = "";
 
-        const name = player.personaname;
-        const game = player.gameextrainfo || "Kein Spiel aktiv";
-        const gameIcon = player.gameextrainfo ? "🎮" : "🛑";
+        switch (player.personastate) {
+          case 0: statusText = "🟥 Offline"; break;
+          case 1: statusText = "🟩 Online"; break;
+          case 2: statusText = "🟡 Abwesend"; break;
+          case 3: statusText = "🟦 Beschäftigt"; break;
+          default: statusText = "Unbekannt";
+        }
 
-        statusBox.innerHTML = `
-          <h3>${gameIcon} Steam Status</h3>
-          <p>👤 ${name}</p>
-          <p>🕹️ ${game}</p>
+        statusDiv.innerHTML = `
+          <strong>Steam:</strong> ${player.personaname}<br>
+          Status: ${statusText}<br>
+          ${player.gameextrainfo ? `Spielt gerade: <b>${player.gameextrainfo}</b><br>
+          <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/${player.gameid}/header.jpg">` : "Aktuell kein Spiel aktiv"}
         `;
-      } catch (err) {
+      })
+      .catch(err => {
+        document.getElementById("steam-status").innerText = "Fehler beim Laden des Steam-Status 😢";
         console.error(err);
-        statusBox.innerHTML = `<h3>🎮 Steam Status</h3><p style="color:orange;">⚠️ Fehler beim Laden.</p>`;
-      }
-    }
-
-    getSteamStatus();
-
-    // Ladeanimation ausblenden
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      setTimeout(() => {
-        loader.style.transition = "opacity 0.5s ease";
-        loader.style.opacity = "0";
-        setTimeout(() => loader.remove(), 500);
-      }, 2500); // 2,5 Sek. Loading
-    });
+      });
   </script>
 
 </body>

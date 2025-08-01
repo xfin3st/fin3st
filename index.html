@@ -157,9 +157,12 @@
   </div>
 
   <!-- Steam API + Proxy -->
-  <script>
-    const apiKey = "EE1F44A7DC9F2CDB8DE415701895BF07";
-    const steamID = "76561197960775116";
+ <script>
+  const apiKey = "EE1F44A7DC9F2CDB8DE415701895BF07";
+  const steamID = "76561197960775116";
+  const statusDiv = document.getElementById("steam-status");
+
+  function updateSteamStatus() {
     const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamID}`;
     const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
 
@@ -167,7 +170,6 @@
       .then(res => res.json())
       .then(data => {
         const player = data.response.players[0];
-        const statusDiv = document.getElementById("steam-status");
 
         let statusText = "";
         switch (player.personastate) {
@@ -188,10 +190,15 @@
         `;
       })
       .catch(err => {
-        document.getElementById("steam-status").innerText = "Fehler beim Laden des Steam-Status 😢";
+        statusDiv.innerText = "Fehler beim Laden des Steam-Status 😢";
         console.error(err);
       });
-  </script>
+  }
+
+  // Erstes Laden + alle 3 Sekunden
+  updateSteamStatus();
+  setInterval(updateSteamStatus, 3000);
+</script>
 
   <!-- Ladeanimation ausblenden -->
   <script>

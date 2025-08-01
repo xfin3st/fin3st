@@ -41,6 +41,7 @@
       letter-spacing: 1px;
     }
 
+    /* Hauptseite */
     body {
       margin: 0;
       background: #0d0d0d;
@@ -108,25 +109,22 @@
     }
 
     .status-box {
-      background: #101010;
-      color: #00ffcc;
-      border: 1px solid #00ffcc55;
-      padding: 16px;
+      margin-top: 40px;
+      border: 2px solid #00ffee;
       border-radius: 12px;
-      margin-top: 50px;
-      box-shadow: 0 0 15px #00ffcc22;
+      padding: 20px;
+      box-shadow: 0 0 10px #00ffee;
+    }
+
+    .status-box h3 {
+      margin: 0 0 10px;
+      color: #00ffee;
       font-family: 'Orbitron', sans-serif;
     }
 
-    .error {
-      color: #ffcc00;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-
     @media (max-width: 400px) {
-      .subline    { font-size: 14px; }
-      a           { font-size: 14px; padding: 10px 20px; }
+      .subline { font-size: 14px; }
+      a        { font-size: 14px; padding: 10px 20px; }
     }
   </style>
 </head>
@@ -138,64 +136,66 @@
     <div id="loader-text">Loading…</div>
   </div>
 
-  <!-- Inhalt mit Containerbegrenzung -->
+  <!-- Hauptinhalt -->
   <div class="container">
     <img class="avatar" src="https://xfin3st.github.io/fin3st/5B6C773E-0ED0-4AB0-B916-9263C174117E.png" alt="Profilbild">
 
     <p class="subline">
-      🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Tüftler</span>
+      🖥️ <span>Developer</span> · 🎮 <span>Gamer</span> · 🌐 <span>Internet Geek</span>
     </p>
 
     <a href="https://github.com/xfin3st" target="_blank">GitHub</a>
     <a href="https://discord.gg/deinserver" target="_blank">Discord</a>
-    <a href="https://paypal.me/deinname" target="_blank">Support</a>
+    <a href="https://paypal.me/xfin3st" target="_blank">Support</a>
 
-    <div id="steamStatus" class="status-box">
-      🎮 <strong>Steam Status</strong><br>
-      <span id="steamGame"></span>
-      <div class="error" id="steamError"></div>
+    <!-- Steam Status -->
+    <div id="steam-status" class="status-box">
+      <h3>🎮 Steam Status</h3>
+      <p style="color:orange;">Wird geladen…</p>
     </div>
   </div>
 
-  <!-- Ladeanimation Script -->
+  <!-- Steam API Script -->
   <script>
+    const apiKey = 'FB15A4536A7F9062B709F71EF89472AE';
+    const steamID = '76561197960775116';
+
+    async function getSteamStatus() {
+      const statusBox = document.getElementById("steam-status");
+
+      try {
+        const res = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamID}`);
+        const data = await res.json();
+        const player = data.response.players[0];
+
+        if (!player) throw new Error("Kein Spieler gefunden");
+
+        const name = player.personaname;
+        const game = player.gameextrainfo || "Kein Spiel aktiv";
+        const gameIcon = player.gameextrainfo ? "🎮" : "🛑";
+
+        statusBox.innerHTML = `
+          <h3>${gameIcon} Steam Status</h3>
+          <p>👤 ${name}</p>
+          <p>🕹️ ${game}</p>
+        `;
+      } catch (err) {
+        console.error(err);
+        statusBox.innerHTML = `<h3>🎮 Steam Status</h3><p style="color:orange;">⚠️ Fehler beim Laden.</p>`;
+      }
+    }
+
+    getSteamStatus();
+
+    // Ladeanimation ausblenden
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       setTimeout(() => {
         loader.style.transition = "opacity 0.5s ease";
         loader.style.opacity = "0";
         setTimeout(() => loader.remove(), 500);
-      }, 3500);
+      }, 2500); // 2,5 Sek. Loading
     });
-  </script>
-
-  <!-- Steam Status API -->
-  <script>
-    async function fetchSteamGame() {
-      const key = "FB15A4536A7F9062B709F71EF89472AE";
-      const steamID = "76561197960775116";
-      const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${key}&steamids=${steamID}`;
-
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        const player = data.response.players[0];
-
-        const game = player?.gameextrainfo;
-        const steamGame = document.getElementById("steamGame");
-        const errorBox = document.getElementById("steamError");
-
-        if (game) {
-          steamGame.textContent = `🟢 Spielt gerade: ${game}`;
-        } else {
-          steamGame.textContent = "🔘 Aktuell kein Spiel aktiv.";
-        }
-      } catch (err) {
-        document.getElementById("steamError").textContent = "⚠️ Fehler beim Laden.";
-      }
-    }
-
-    fetchSteamGame();
   </script>
 
 </body>
